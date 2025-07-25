@@ -1,7 +1,5 @@
 from collections import deque
 from itertools import combinations
-
-# People and their crossing times
 people = {
     'Amogh': 5,
     'Ameya': 10,
@@ -9,8 +7,7 @@ people = {
     'Grandfather': 25
 }
 
-# Initial state:
-# Left side has all people, right side is empty, umbrella is on the left, and time is 0
+
 def bfs():
     start_state = (frozenset(people.keys()), frozenset(), 'L', 0)
     queue = deque()
@@ -21,7 +18,7 @@ def bfs():
         current, path = queue.popleft()
         left, right, umbrella, elapsed_time = current
 
-        # Success condition
+        
         if len(right) == 4 and elapsed_time <= 60:
             return path
 
@@ -30,7 +27,7 @@ def bfs():
         visited.add((left, right, umbrella))
 
         if umbrella == 'L':
-            # Choose 2 people to go from left to right
+           
             for pair in combinations(left, 2):
                 new_left = set(left) - set(pair)
                 new_right = set(right).union(pair)
@@ -49,7 +46,7 @@ def bfs():
                     queue.append((new_state, path + [new_state]))
     return None
 
-# Run and print result
+
 path = bfs()
 if path:
     for step in path:
