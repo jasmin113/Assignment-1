@@ -1,6 +1,6 @@
 from itertools import combinations
 
-# People and crossing times
+
 people = {
     'Amogh': 5,
     'Ameya': 10,
@@ -8,7 +8,7 @@ people = {
     'Grandfather': 25
 }
 
-# DFS function
+
 def dfs():
     start_state = (frozenset(people.keys()), frozenset(), 'L', 0)
     stack = [(start_state, [start_state])]
@@ -18,7 +18,7 @@ def dfs():
         current, path = stack.pop()
         left, right, umbrella, elapsed_time = current
 
-        # Goal: all on right and within 60 mins
+        
         if len(right) == 4 and elapsed_time <= 60:
             return path
 
@@ -37,7 +37,7 @@ def dfs():
                     new_state = (frozenset(new_left), frozenset(new_right), 'R', new_time)
                     stack.append((new_state, path + [new_state]))
         else:
-            # One person returns right to left
+           
             for person in right:
                 new_right = set(right) - {person}
                 new_left = set(left).union({person})
@@ -48,7 +48,7 @@ def dfs():
                     stack.append((new_state, path + [new_state]))
     return None
 
-# Run DFS and print result
+
 path = dfs()
 if path:
     for step in path:
